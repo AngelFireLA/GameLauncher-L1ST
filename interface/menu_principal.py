@@ -12,7 +12,8 @@ arriere_plan = pygame.transform.scale(arriere_plan, (largeur_fenetre, hauteur_fe
 
 boutton_mode_arcade = boutton.BouttonImagé(largeur_fenetre//2, 520, 420, 190, chemin_absolu_dossier+"assets/images/bouttons/boutton_arcade.png")
 boutton_mode_histoire = boutton.BouttonImagé(largeur_fenetre//2, 270, 420, 245, chemin_absolu_dossier+"assets/images/bouttons/boutton_histoire.png")
-
+boutton_mode_arcade_grossi = boutton.BouttonImagé(largeur_fenetre//2, 520, 420 + 10, 190 + 10, chemin_absolu_dossier+"assets/images/bouttons/boutton_arcade.png")
+boutton_mode_histoire_grossi = boutton.BouttonImagé(largeur_fenetre//2, 270, 420 + 10, 245 + 10, chemin_absolu_dossier+"assets/images/bouttons/boutton_histoire.png")
 
 def main():
     clock = pygame.time.Clock()
@@ -34,9 +35,14 @@ def main():
                 if boutton_mode_histoire.boutton_clické(event):
                     print("mode histoire")
         fenetre.blit(arriere_plan, (0, 0))
-
-        boutton_mode_arcade.afficher(fenetre)
-        boutton_mode_histoire.afficher(fenetre)
+        if boutton_mode_arcade.rect.collidepoint(pygame.mouse.get_pos()):
+            boutton_mode_arcade_grossi.afficher(fenetre)
+        else:
+            boutton_mode_arcade.afficher(fenetre)
+        if boutton_mode_histoire.rect.collidepoint(pygame.mouse.get_pos()):
+            boutton_mode_histoire_grossi.afficher(fenetre)
+        else:
+            boutton_mode_histoire.afficher(fenetre)
         pygame.display.update()
         clock.tick(60)
 
