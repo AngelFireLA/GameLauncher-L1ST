@@ -242,7 +242,7 @@ def main_multi():
             réponse = socket_client.recv(2048).decode('utf-8')
         except BlockingIOError:
             pass
-        clock.tick(60)
+
     print("Partie va commencer")
     indexe_joueur, nom_adversaire = réponse.split(":")[1].split("|")
     indexe_joueur = int(indexe_joueur)
@@ -285,15 +285,6 @@ def main_multi():
             symbole = partie.joueur1.symbole if partie.tour_joueur == 1 else partie.joueur2.symbole
             animation_jeton(colonne_choisie, ligne_finale, symbole)
             if partie.jouer(colonne_choisie, partie.tour_joueur):
-
-                if partie.plateau.est_nul():
-                    print("Match nul")
-                    afficher_texte(fenetre, largeur_fenetre // 2, hauteur_fenetre // 2, f"Match nul !", 60,
-                                   dict_couleurs["bleu marin"])
-                    pygame.display.flip()
-                    pygame.time.wait(3000)
-                    partie_en_cours = False
-                    socket_client.close()
                 if partie.plateau.est_victoire(colonne_choisie):
                     texte_résultat = "Victoire !" if partie.tour_joueur == indexe_joueur else f"Défaite !"
                     afficher_texte(fenetre, largeur_fenetre // 2, hauteur_fenetre // 2,
@@ -302,7 +293,14 @@ def main_multi():
                     pygame.time.wait(3000)
                     partie_en_cours = False
                     socket_client.close()
-
+                if partie.plateau.est_nul():
+                    print("Match nul")
+                    afficher_texte(fenetre, largeur_fenetre // 2, hauteur_fenetre // 2, f"Match nul !", 60,
+                                   dict_couleurs["bleu marin"])
+                    pygame.display.flip()
+                    pygame.time.wait(3000)
+                    partie_en_cours = False
+                    socket_client.close()
                 if partie.tour_joueur == 1:
                     partie.tour_joueur = 2
                 else:
