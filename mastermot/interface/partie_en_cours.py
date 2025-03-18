@@ -86,7 +86,7 @@ def main():
                     else:
                         fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
 
-                if case_selectionnee is not None and not est_victoire and not est_perdu:
+                if not est_victoire and not est_perdu:
                     if event.key == pygame.K_RETURN:
                         toutes_cases_remplies = True
                         for colonne in range(5):

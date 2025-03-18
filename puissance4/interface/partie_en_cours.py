@@ -116,7 +116,7 @@ def main(profondeur=6):
     joueur1 = Joueur("Joueur 1", "X")
     if profondeur > 0:
         temp_de_pensée_max = 3 if profondeur >= 8 else 0
-        joueur2 = bots.negamaxv5.Negamax5(random.choice(noms_robots), "O", profondeur=profondeur, temps_max=temp_de_pensée_max)
+        joueur2 = negamaxv5.Negamax5(random.choice(noms_robots), "O", profondeur=profondeur, temps_max=temp_de_pensée_max)
 
     else:
         joueur2 = Joueur("Joueur 2", "O")
