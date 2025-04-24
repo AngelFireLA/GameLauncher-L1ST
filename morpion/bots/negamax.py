@@ -23,7 +23,6 @@ class Negamax(Bot):
                 meilleur_coups = [coup]
             elif score == meilleur_score:
                 meilleur_coups.append(coup)
-        print(meilleur_coups, meilleur_score)
         return random.choice(meilleur_coups)
 
     def grille_à_tuple(self, grille):

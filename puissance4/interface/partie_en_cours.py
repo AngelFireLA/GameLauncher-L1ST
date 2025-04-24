@@ -115,7 +115,11 @@ def main(profondeur=6):
     clock = pygame.time.Clock()
     joueur1 = Joueur("Joueur 1", "X")
     if profondeur > 0:
-        temp_de_pensée_max = 3 if profondeur >= 8 else 0
+        temp_de_pensée_max = 0
+        if profondeur >= 8:
+            temp_de_pensée_max = 3
+        elif profondeur >=6:
+            temp_de_pensée_max = 0.5
         joueur2 = negamaxv5.Negamax5(random.choice(noms_robots), "O", profondeur=profondeur, temps_max=temp_de_pensée_max)
 
     else:
@@ -147,6 +151,10 @@ def main(profondeur=6):
 
                     partie_en_cours = vérifie_fin_de_partie(fenetre, hauteur_fenetre, largeur_fenetre, partie, colonne)
 
+                    if not partie_en_cours:
+                        if partie.plateau.est_nul():
+                            return 0
+                        return partie.tour_joueur
                     if partie.tour_joueur == 1:
                         partie.tour_joueur = 2
                     else:
@@ -156,7 +164,7 @@ def main(profondeur=6):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     if menu_pause.main():
-                        return
+                        return 2
                     else:
                         fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
 
@@ -172,7 +180,10 @@ def main(profondeur=6):
             if partie.jouer(colonne, partie.tour_joueur):
 
                 partie_en_cours = vérifie_fin_de_partie(fenetre, hauteur_fenetre, largeur_fenetre, partie, colonne)
-
+                if not partie_en_cours:
+                    if partie.plateau.est_nul():
+                        return 0
+                    return partie.tour_joueur
                 if partie.tour_joueur == 1:
                     partie.tour_joueur = 2
                 else:

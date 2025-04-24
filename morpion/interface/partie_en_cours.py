@@ -101,9 +101,9 @@ taille_case = min(largeur_disponible, hauteur_disponible) // 3
 taille_grille = taille_case * 3
 
 
-def main(veut_gagner=None):
+def main(veut_gagner=None, tour_joueur=1):
     partie = Partie()
-    partie.tour_joueur = 1
+    partie.tour_joueur = tour_joueur
     clock = pygame.time.Clock()
     joueur1 = Joueur("Joueur 1", "X")
     if veut_gagner is not None:
@@ -161,6 +161,10 @@ def main(veut_gagner=None):
                 partie.tour_joueur = 2
             else:
                 partie.tour_joueur = 1
+    est_nul = vérifier_si_match_nul(partie.grille)
+    if est_nul:
+        return 0
+    return 2 if partie.tour_joueur == 1 else 1
 
 def main_multi():
     partie = Partie()

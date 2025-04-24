@@ -30,19 +30,31 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if boutton_mode_arcade.boutton_clické(event):
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
                     menu_sélection_de_jeu.main()
                     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
                 if boutton_mode_histoire.boutton_clické(event):
                     print("mode histoire")
         fenetre.blit(arriere_plan, (0, 0))
-        if boutton_mode_arcade.rect.collidepoint(pygame.mouse.get_pos()):
+        pos_souris = pygame.mouse.get_pos()
+        est_sur_un_boutton = False
+        if boutton_mode_arcade.rect.collidepoint(pos_souris):
+            est_sur_un_boutton = True
             boutton_mode_arcade_grossi.afficher(fenetre)
         else:
             boutton_mode_arcade.afficher(fenetre)
-        if boutton_mode_histoire.rect.collidepoint(pygame.mouse.get_pos()):
+
+        if boutton_mode_histoire.rect.collidepoint(pos_souris):
+            est_sur_un_boutton = True
             boutton_mode_histoire_grossi.afficher(fenetre)
         else:
             boutton_mode_histoire.afficher(fenetre)
+
+        if est_sur_un_boutton:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
         pygame.display.update()
         clock.tick(60)
 
