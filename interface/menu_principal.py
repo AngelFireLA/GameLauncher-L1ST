@@ -6,7 +6,7 @@ pygame.init()
 import interface.boutton as boutton
 from utils import afficher_texte, dict_couleurs, largeur_fenetre, hauteur_fenetre, chemin_absolu_dossier
 from interface import menu_sélection_de_jeu
-
+import mode_histoire.interface.menu_principal as menu_principale_mode_histoire
 arriere_plan = pygame.image.load(chemin_absolu_dossier+"assets/images/menu_arrière_plan.jpg")
 arriere_plan = pygame.transform.scale(arriere_plan, (largeur_fenetre, hauteur_fenetre))
 
@@ -34,7 +34,9 @@ def main():
                     menu_sélection_de_jeu.main()
                     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
                 if boutton_mode_histoire.boutton_clické(event):
-                    print("mode histoire")
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+                    menu_principale_mode_histoire.main()
+                    fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
         fenetre.blit(arriere_plan, (0, 0))
         pos_souris = pygame.mouse.get_pos()
         est_sur_un_boutton = False
