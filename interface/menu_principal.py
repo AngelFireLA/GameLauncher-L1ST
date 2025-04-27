@@ -7,13 +7,13 @@ import interface.boutton as boutton
 from utils import afficher_texte, dict_couleurs, largeur_fenetre, hauteur_fenetre, chemin_absolu_dossier
 from interface import menu_sélection_de_jeu
 
-arriere_plan = pygame.image.load(chemin_absolu_dossier+"assets/images/menu_arrière_plan_principal.jpg")
+arriere_plan = pygame.image.load(chemin_absolu_dossier+"assets/images/menu_arrière_plan.jpg")
 arriere_plan = pygame.transform.scale(arriere_plan, (largeur_fenetre, hauteur_fenetre))
 
-boutton_mode_arcade = boutton.BouttonImagé(largeur_fenetre//2, 520, 420, 190, chemin_absolu_dossier+"assets/images/bouttons/boutton_arcade.png")
-boutton_mode_histoire = boutton.BouttonImagé(largeur_fenetre//2, 270, 420, 245, chemin_absolu_dossier+"assets/images/bouttons/boutton_histoire.png")
-boutton_mode_arcade_grossi = boutton.BouttonImagé(largeur_fenetre//2, 520, 420 + 10, 190 + 10, chemin_absolu_dossier+"assets/images/bouttons/boutton_arcade.png")
-boutton_mode_histoire_grossi = boutton.BouttonImagé(largeur_fenetre//2, 270, 420 + 10, 245 + 10, chemin_absolu_dossier+"assets/images/bouttons/boutton_histoire.png")
+boutton_mode_arcade = boutton.BouttonImagé(largeur_fenetre//2, 500, 420, 190, chemin_absolu_dossier+"assets/images/bouttons/boutton_arcade.png")
+boutton_mode_histoire = boutton.BouttonImagé(largeur_fenetre//2, 290, 420, 245, chemin_absolu_dossier+"assets/images/bouttons/boutton_histoire.png")
+boutton_mode_arcade_grossi = boutton.BouttonImagé(largeur_fenetre//2, 500, 420 + 10, 190 + 10, chemin_absolu_dossier+"assets/images/bouttons/boutton_arcade.png")
+boutton_mode_histoire_grossi = boutton.BouttonImagé(largeur_fenetre//2, 290, 420 + 10, 245 + 10, chemin_absolu_dossier+"assets/images/bouttons/boutton_histoire.png")
 
 def main():
     clock = pygame.time.Clock()

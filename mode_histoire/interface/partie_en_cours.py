@@ -53,7 +53,7 @@ histoire_principale_en_liste = story = [
     "“Il faut vraiment arrêter avec ça” s’écria le joueur pendant que son regard sombrait.",
     5,
     "Le joueur réémergea encore une fois, son adversaire déjà debout.\n“Mes frères n’ont donc pas perdu pour rien.” dit-il avec un faux sourire, visiblement un peu énervé à cause de sa défaite. “Pars vite, et que je ne te revois pas.”",
-    "Le joueur ne perdit pas de temps et traversa la porte sans regarder en arrière, entrant dans un tunnel peu éclairé, avec plus loin, des escaliers de pierre."
+    "Le joueur ne perdit pas de temps et traversa la porte sans regarder en arrière, entrant dans un tunnel peu éclairé, avec plus loin, des escaliers de pierre. \n\n [FIN] (pour l'instant)"
 ]
 def lancer_histoire_principale(dernier_texte=None):
     clock = pygame.time.Clock()
