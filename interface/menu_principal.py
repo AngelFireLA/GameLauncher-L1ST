@@ -18,7 +18,7 @@ boutton_mode_histoire_grossi = boutton.BouttonImagé(largeur_fenetre//2, 290, 42
 def main():
     clock = pygame.time.Clock()
     computer_width = pygame.display.Info().current_w
-    window_x = computer_width//2 - largeur_fenetre//2
+    window_x = computer_width//2 - largeur_fenetre//2 - 150
     os.environ['SDL_VIDEO_WINDOW_POS'] = f"{window_x},100"
     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
     pygame.display.set_caption("Portail de Jeux")
@@ -36,6 +36,7 @@ def main():
                 if boutton_mode_histoire.boutton_clické(event):
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
                     menu_principale_mode_histoire.main()
+                    os.environ['SDL_VIDEO_WINDOW_POS'] = f"{window_x},100"
                     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
         fenetre.blit(arriere_plan, (0, 0))
         pos_souris = pygame.mouse.get_pos()
