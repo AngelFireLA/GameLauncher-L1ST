@@ -1,5 +1,6 @@
 import random
 
+
 class Plateau:
     def __init__(self, colonnes=7, lignes=6, grille=None, colonnes_jouables=None, hauteurs_colonnes=None):
         self.colonnes = colonnes
@@ -7,11 +8,11 @@ class Plateau:
         self.grille = self.construire_grille() if grille is None else grille
         self.colonnes_jouables = set(range(self.colonnes)) if colonnes_jouables is None else colonnes_jouables
         self.hauteurs_colonnes = [0] * self.colonnes if hauteurs_colonnes is None else hauteurs_colonnes
+
     def construire_grille(self):
         return [[] for _ in range(self.colonnes)]
 
     def copier_grille(self):
-        #without using colonne.copy
         return Plateau(grille=[colonne.copy() for colonne in self.grille], colonnes=self.colonnes, lignes=self.lignes, colonnes_jouables=self.colonnes_jouables.copy(), hauteurs_colonnes=self.hauteurs_colonnes.copy())
 
     def afficher(self):
@@ -32,11 +33,12 @@ class Plateau:
 
         self.grille[colonne].append(symbole)
         self.hauteurs_colonnes[colonne] += 1
-
         if self.colonne_pleine(colonne):
             self.colonnes_jouables.remove(colonne)
 
         return True
+
+
 
     def colonne_pleine(self, colonne):
         return self.hauteurs_colonnes[colonne] >= self.lignes
@@ -48,6 +50,7 @@ class Plateau:
     def est_victoire(self, colonne):
         jeton = self.grille[colonne][-1]
         ligne = self.hauteurs_colonnes[colonne] - 1
+
         directions = [(1, 0), (0, 1), (1, 1), (1, -1)]
         for dx, dy in directions:
             compte = 1

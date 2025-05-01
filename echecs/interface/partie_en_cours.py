@@ -27,10 +27,11 @@ def afficher_grille(fenêtre, couleur_joueur):
                     utils.afficher_texte(fenêtre, decalage+taille_case//9, ligne * taille_case + decalage + taille_case // 2 - taille_case//3.5, str(ligne + 1), 30, couleur=couleur_texte)
 
             #les lettres des colonnes
-            x = colonne * taille_case + decalage + taille_case // 1.2
-            y = 8 * taille_case + decalage - taille_case // 5
-            couleur_texte = couleurs_cases[(colonne + 0) % 2]
-            utils.afficher_texte(fenêtre, x, y, nom_colonnes[colonne], 30, couleur=couleur_texte)
+            if ligne == 7:
+                x = colonne * taille_case + decalage + taille_case // 1.2
+                y = 8 * taille_case + decalage - taille_case // 5
+                couleur_texte = couleurs_cases[(colonne + 0) % 2]
+                utils.afficher_texte(fenêtre, x, y, nom_colonnes[colonne], 30, couleur=couleur_texte)
 
 
 def afficher_pièces(fenêtre, grille, couleur_joueur):
@@ -147,7 +148,7 @@ def main(profondeur=4):
     en_cours = True
     couleur_joueur = "blanc"
     partie = Partie()
-    partie.grille_depuis_fen("basique")
+    partie.grille_depuis_fen("8/8/8/8/8/8/8/8/8")
     joueur1 = Joueur("Joueur 1", "blanc")
     if profondeur > 0:
         temp_de_pensée_max = 0.5 if profondeur >= 4 else 0
@@ -274,7 +275,7 @@ def main_multi():
     negamax.init_transposition()
     en_cours = True
     partie = Partie()
-    partie.grille_depuis_fen("basique")
+    partie.grille_depuis_fen()
     port = utils.récupérer_port()
     local = utils.est_local()
     socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

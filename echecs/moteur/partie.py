@@ -24,7 +24,6 @@ def pièce_depuis_symbole(symbol: str):
 
 class Partie:
     def __init__(self):
-        self.terminee = False
         self.tour_joueur = "blanc"
         self.grille = None
         self.compteur_de_tour = 0
@@ -34,13 +33,9 @@ class Partie:
         self.joueur1 = None
         self.joueur2 = None
 
-    def grille_depuis_fen(self, notation_fen: str):
-        if notation_fen == "basique":
-            notation_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
-
+    def grille_depuis_fen(self, notation_fen="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"):
         grille = []
         lignes_fen = notation_fen.split('/')
-
         for i, ligne_fen in enumerate(lignes_fen):
             ligne = []
             index_colonne = 0

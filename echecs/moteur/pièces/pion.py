@@ -10,7 +10,7 @@ class Pion(Pièce):
         pièce_copiée = Pion(self.couleur, self.x, self.y)
         return pièce_copiée
 
-    def get_patterne_possible(self, grille: list):
+    def récupérer_patterne_possible(self, grille: list):
         if self.couleur == "blanc":
             patterne = []
             if not grille[self.y - 1][self.x]:
@@ -27,19 +27,15 @@ class Pion(Pièce):
             return patterne
 
     def liste_coups_legaux(self, grille: list, peut_capturer_allie=False):
-        patterne = self.get_patterne_possible(grille)
+        patterne = self.récupérer_patterne_possible(grille)
         if self.couleur == "blanc":
             if self.y - 1 >= 0 and self.x - 1 >= 0:
                 if grille[self.y - 1][self.x - 1]:
                     if not grille[self.y - 1][self.x - 1].couleur == self.couleur:
                         patterne.append((-1, -1))
-                    elif peut_capturer_allie:
-                        patterne.append((-1, -1))
             if self.y - 1 >= 0 and self.x + 1 <= 7:
                 if grille[self.y - 1][self.x + 1]:
                     if not grille[self.y - 1][self.x + 1].couleur == self.couleur:
-                        patterne.append((1, -1))
-                    elif peut_capturer_allie:
                         patterne.append((1, -1))
         else:
             if self.x - 1 >= 0 and self.y + 1 <= 7:

@@ -19,6 +19,7 @@ class Boutton:
         else:
             self.couleur_surlignée = couleur_surlignée
         self.couleur_texte = couleur_texte if couleur_texte else dict_couleurs["bleu marin"]
+
     def génère_rect(self):
         self.rect = pygame.Rect(0, 0, self.largeur, self.hauteur)
         self.rect.center = (self.x, self.y)
@@ -53,7 +54,6 @@ class BouttonImagé:
     def __init__(self, x, y, largeur, hauteur, image, montrer=True):
         self.hauteur = hauteur
         self.largeur = largeur
-        self.ratio = min(largeur/hauteur, hauteur/largeur)
         self.x, self.y = x, y
         self.rect = None
         self.génère_rect()

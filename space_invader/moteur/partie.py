@@ -4,8 +4,12 @@ import random
 
 from ..moteur.bullet import Bullet
 from ..moteur.ennemy import Enemy
-from ..utils import check_collision
 from ..utils import chemin_absolu_dossier
+
+def check_collision(obj1, obj2):
+    rect1 = obj1.image.get_rect(topleft=(obj1.x, obj1.y))
+    rect2 = obj2.image.get_rect(topleft=(obj2.x, obj2.y))
+    return rect1.colliderect(rect2)
 
 class Player:
     def __init__(self, start_x=480, start_y=650, speed=10):
@@ -39,6 +43,7 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
+
 
 class Partie:
     def __init__(self, screen_width=1024, screen_height=768):

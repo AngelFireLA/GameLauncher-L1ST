@@ -3,10 +3,11 @@ import time
 
 from .bot import Bot
 
+
 def tri_coups(plateau):
     centre = plateau.colonnes // 2
-    # Sort playable columns by how close they are to the center.
     return sorted(list(plateau.colonnes_jouables), key=lambda col: abs(col - centre))
+
 
 class Negamax5(Bot):
     def __init__(self, nom, symbole, profondeur=4, temps_max=0):
@@ -38,16 +39,15 @@ class Negamax5(Bot):
                     return col
 
                 prochain_symbole = joueur2.symbole
-                score = -self.negamax(plateau, profondeur=self.profondeur + i, symbole=prochain_symbole,
-                                       alpha=-float('inf'), beta=float('inf'))
+                score = -self.negamax(plateau, profondeur=self.profondeur + i, symbole=prochain_symbole, alpha=-float('inf'), beta=float('inf'))
                 plateau.annuler_coup(col, colonne_est_enlevée, self.symbole)
-                if score > 0:
-                    return col
+
                 if score > meilleur_score:
                     meilleur_score = score
                     meilleur_coups = [col]
                 elif score == meilleur_score:
                     meilleur_coups.append(col)
+
         else:
             while time.time() - start_time <= self.temps_de_pensée_max and meilleur_score <= 0 and i <= coups_restants:
                 meilleur_score = -float('inf')
@@ -74,13 +74,13 @@ class Negamax5(Bot):
         if not meilleur_coups:
             return 0
 
-        center = plateau.colonnes // 2
+        centre = plateau.colonnes // 2
 
-        max_distance = max(abs(col - center) for col in plateau.colonnes_jouables) if plateau.colonnes_jouables else 1
+        distance_max = max(abs(col - centre) for col in plateau.colonnes_jouables) if plateau.colonnes_jouables else 1
 
-        weights = [(max_distance - abs(col - center) + 1) for col in meilleur_coups]
-        selected_move = random.choices(meilleur_coups, weights=weights, k=1)[0]
-        return selected_move
+        poids = [(distance_max - abs(col - centre) + 1) for col in meilleur_coups]
+        coup_choisi = random.choices(meilleur_coups, weights=poids, k=1)[0]
+        return coup_choisi
 
     def grille_à_tuple(self, plateau):
         return tuple(tuple(col + ["."] * (plateau.lignes - len(col))) for col in plateau.grille)
@@ -91,12 +91,14 @@ class Negamax5(Bot):
             return 0
 
         clé = (self.grille_à_tuple(plateau), profondeur, symbole)
+
         if clé in self.table_de_transposition:
             return self.table_de_transposition[clé]
 
         meilleur_score = -float('inf')
         for col in tri_coups(plateau):
             colonne_est_enlevée = plateau.jouer_coup_reversible(col, symbole)
+
             if plateau.est_victoire(col):
                 plateau.annuler_coup(col, colonne_est_enlevée, symbole)
                 self.table_de_transposition[clé] = 1000 + profondeur
@@ -108,6 +110,7 @@ class Negamax5(Bot):
 
             if score > meilleur_score:
                 meilleur_score = score
+
             if meilleur_score > alpha:
                 alpha = meilleur_score
             if alpha >= beta:

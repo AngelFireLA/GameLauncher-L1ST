@@ -19,8 +19,12 @@ def afficher_plateau(fenetre):
     x_initial = (largeur_fenetre - taille_grille) / 2
     y_initial = (hauteur_fenetre - taille_grille) / 2
     for i in range(1, 3):
-        pygame.draw.line(fenetre, dict_couleurs["bleu marin"], (x_initial + i * taille_case, y_initial), (x_initial + i * taille_case, y_initial + taille_grille), 5)
-        pygame.draw.line(fenetre, dict_couleurs["bleu marin"], (x_initial, y_initial + i * taille_case), (x_initial + taille_grille, y_initial + i * taille_case), 5)
+        pos_début1 = (x_initial + i * taille_case, y_initial)
+        pos_fin1 = (x_initial + i * taille_case, y_initial + taille_grille)
+        pygame.draw.line(fenetre, dict_couleurs["bleu marin"], pos_début1, pos_fin1, 5)
+        pos_début2 = (x_initial, y_initial + i * taille_case)
+        pos_fin2 = (x_initial + taille_grille, y_initial + i * taille_case)
+        pygame.draw.line(fenetre, dict_couleurs["bleu marin"], pos_début2, pos_fin2, 5)
 
 
 def afficher_jetons(fenetre, partie):
@@ -32,9 +36,12 @@ def afficher_jetons(fenetre, partie):
             if jeton:
                 x, y = case_à_position(j, i)
                 if jeton == "X":
-                    pygame.draw.rect(fenetre, dict_couleurs["noir"], (x + 10, y + 10, taille_case - 20, taille_case - 20), 5)
+                    position = (x + 10, y + 10, taille_case - 20, taille_case - 20)
+                    pygame.draw.rect(fenetre, dict_couleurs["noir"], position, 5)
                 else:
-                    pygame.draw.circle(fenetre, dict_couleurs["noir"], (x + taille_case // 2, y + taille_case // 2), taille_case // 2 - 10, 5)
+                    position = (x + taille_case // 2, y + taille_case // 2)
+                    rayon = taille_case // 2 - 10
+                    pygame.draw.circle(fenetre, dict_couleurs["noir"], position, rayon, 5)
 
 
 def affiche_trucs_de_base(fenetre, partie):
@@ -103,8 +110,8 @@ taille_grille = taille_case * 3
 
 def main(veut_gagner=None, tour_joueur=1):
     partie = Partie()
-    partie.tour_joueur = tour_joueur
     clock = pygame.time.Clock()
+    partie.tour_joueur = tour_joueur
     joueur1 = Joueur("Joueur 1", "X")
     if veut_gagner is not None:
         joueur2 = negamax.Negamax("Joueur 2", "O")

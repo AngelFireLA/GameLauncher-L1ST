@@ -9,7 +9,7 @@ class Fou(Pièce):
         nouvelle_pièce = Fou(self.couleur,  self.x, self.y)
         return nouvelle_pièce
 
-    def get_patterne_possible(self):
+    def récupérer_patterne_possible(self):
         patterne = [(1, 1), (1, -1), (-1, -1), (-1, 1)]
         for i in range(len(patterne) - 1, -1, -1):
             if self.x + patterne[i][0] < 0 or self.x + patterne[i][0] > 7 or self.y + patterne[i][1] < 0 or self.y + \
@@ -18,19 +18,16 @@ class Fou(Pièce):
         return patterne
 
     def liste_coups_legaux(self, grille: list, peut_capturer_allie=False):
-        patterne = self.get_patterne_possible()
+        patterne = self.récupérer_patterne_possible()
         nouveau_patterne = []
-        for move in patterne:
-            x = move[0]
-            y = move[1]
+        for coup in patterne:
+            x = coup[0]
+            y = coup[1]
             while True:
                 if not grille[self.y+y][self.x+x]:
                     nouveau_patterne.append((x, y))
                 else:
                     if grille[self.y+y][self.x+x].couleur != self.couleur:
-                        nouveau_patterne.append((x, y))
-                        break
-                    elif peut_capturer_allie:
                         nouveau_patterne.append((x, y))
                         break
                     else:

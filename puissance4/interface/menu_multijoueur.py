@@ -31,13 +31,9 @@ def main():
                     while not type(port_pour_serveur) == int or port_pour_serveur < 0:
                         entrer_port_menu.main()
                         port_pour_serveur = récupérer_port()
-                    mettre_à_jour_ip("127.0.0.1")
-                    if est_local():
-                        threading.Thread(target=serveur.main, args=(port_pour_serveur,), daemon=True).start()
-                    else:
-                        threading.Thread(target=serveur.main, args=(port_pour_serveur,), daemon=True).start()
+                    mettre_à_jour_ip("0.0.0.0")
+                    threading.Thread(target=serveur.main, args=(port_pour_serveur,), daemon=True).start()
                     partie_en_cours.main_multi()
-                    #close the server
                     serveur.éteint_serveur()
                     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
 

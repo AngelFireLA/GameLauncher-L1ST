@@ -29,13 +29,17 @@ espace_y = 100
 positions_icones = []
 for i in range(3):
     for j in range(4):
-        positions_icones.append((x_initial + j*(espace_x + taille_icone//2), y_initial + i*(espace_y + taille_icone//2)))
+        position = (x_initial + j*(espace_x + taille_icone//2), y_initial + i*(espace_y + taille_icone//2))
+        positions_icones.append(position)
+
+
 boutton_puissance4 = boutton.BouttonImagé(positions_icones[0][0], positions_icones[0][1], taille_icone, taille_icone, "assets/images/icones_jeux/puissance4.png")
 boutton_échecs = boutton.BouttonImagé(positions_icones[4][0], positions_icones[4][1], taille_icone, taille_icone, "assets/images/icones_jeux/échecs.png")
 boutton_morpion = boutton.BouttonImagé(positions_icones[2][0], positions_icones[2][1], taille_icone, taille_icone, "assets/images/icones_jeux/morpion.png")
 boutton_mastermot = boutton.BouttonImagé(positions_icones[3][0], positions_icones[3][1], taille_icone, taille_icone, "assets/images/icones_jeux/mastermot.png")
 boutton_mastermind = boutton.BouttonImagé(positions_icones[1][0], positions_icones[1][1], taille_icone, taille_icone, "assets/images/icones_jeux/mastermind.png")
 boutton_tours_hannoi = boutton.BouttonImagé(positions_icones[5][0], positions_icones[5][1], taille_icone, taille_icone, "assets/images/icones_jeux/tours_hannoi.png")
+boutton_space_invader = boutton.BouttonImagé(positions_icones[6][0], positions_icones[6][1], taille_icone, taille_icone, "assets/images/icones_jeux/space_invader.png")
 
 boutton_puissance4_grossi = boutton.BouttonImagé(positions_icones[0][0], positions_icones[0][1], taille_icone + 10, taille_icone + 10, "assets/images/icones_jeux/puissance4.png")
 boutton_échecs_grossi = boutton.BouttonImagé(positions_icones[4][0], positions_icones[4][1], taille_icone + 10, taille_icone + 10, "assets/images/icones_jeux/échecs.png")
@@ -43,7 +47,6 @@ boutton_morpion_grossi = boutton.BouttonImagé(positions_icones[2][0], positions
 boutton_mastermot_grossi = boutton.BouttonImagé(positions_icones[3][0], positions_icones[3][1], taille_icone + 10, taille_icone + 10, "assets/images/icones_jeux/mastermot.png")
 boutton_mastermind_grossi = boutton.BouttonImagé(positions_icones[1][0], positions_icones[1][1], taille_icone + 10, taille_icone + 10, "assets/images/icones_jeux/mastermind.png")
 boutton_tours_hannoi_grossi = boutton.BouttonImagé(positions_icones[5][0], positions_icones[5][1], taille_icone + 10, taille_icone + 10, "assets/images/icones_jeux/tours_hannoi.png")
-boutton_space_invader = boutton.BouttonImagé(positions_icones[6][0], positions_icones[6][1], taille_icone, taille_icone, "assets/images/icones_jeux/space_invader.png")
 boutton_space_invader_grossi = boutton.BouttonImagé(positions_icones[6][0], positions_icones[6][1], taille_icone + 10, taille_icone + 10, "assets/images/icones_jeux/space_invader.png")
 
 
@@ -141,7 +144,6 @@ def main():
         else:
             boutton_tours_hannoi.afficher(fenetre)
         afficher_texte(fenetre, positions_icones[5][0]-5, positions_icones[5][1] + taille_icone//2 + 20, "Tours de Hannoï", 18, dict_couleurs["blanc"])
-
 
         if boutton_space_invader.rect.collidepoint(pos_souris):
             boutton_space_invader_grossi.afficher(fenetre)

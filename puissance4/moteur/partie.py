@@ -1,7 +1,7 @@
 from . import plateau
 
-class Partie:
 
+class Partie:
     def __init__(self, colonnes=7, lignes=6):
         self.plateau = plateau.Plateau(colonnes, lignes)
         self.joueur1 = None

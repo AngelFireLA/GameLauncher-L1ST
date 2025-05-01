@@ -8,7 +8,8 @@ class Dame(Pièce):
     def copy(self):
         nouvelle_pièce = Dame(self.couleur,  self.x, self.y)
         return nouvelle_pièce
-    def get_patterne_possible(self):
+
+    def récupérer_patterne_possible(self):
         patterne_diagonale = [(1, 1), (1, -1), (-1, -1), (-1, 1)]
         patterne_tour = [(+1, +0), (-1, +0), (+0, +1), (+0, -1)]
         for i in range(len(patterne_diagonale) - 1, -1, -1):
@@ -21,7 +22,7 @@ class Dame(Pièce):
         return patterne_diagonale, patterne_tour
 
     def liste_coups_legaux(self, grille: list, peut_capturer_allie=False):
-        patterne = self.get_patterne_possible()
+        patterne = self.récupérer_patterne_possible()
         nouveau_patterne = []
         for coup in patterne[0]:
             x = coup[0]

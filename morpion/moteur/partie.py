@@ -19,6 +19,7 @@ class Partie:
         if num_joueur != self.tour_joueur:
             print("Ce n'est pas votre tour")
             return
+
         if num_joueur == 1:
             symbole = self.joueur1.symbole
         elif num_joueur == 2:

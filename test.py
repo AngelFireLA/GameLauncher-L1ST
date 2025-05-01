@@ -1,4 +1,4 @@
-import space_invader.interface.menu_principal as menu_principal
+chemin_absolu_dossier = ""
 
-if __name__ == '__main__':
-    menu_principal.main()
+chemin = chemin_absolu_dossier+"assets/images/truc.png"
+

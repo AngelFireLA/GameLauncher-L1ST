@@ -10,7 +10,7 @@ class Roi(Pièce):
         pièce_copiée.a_bougé = self.a_bougé
         return pièce_copiée
 
-    def get_patterne_possible(self):
+    def récupérer_patterne_possible(self):
         patterne = [(2, 0), (-2, 0), (+1, +0), (+1, +1), (+0, +1), (-1, +1), (-1, +0), (-1, -1), (+0, -1), (+1, -1)]
         for i in range(len(patterne) - 1, -1, -1):
             if self.x + patterne[i][0] < 0 or self.x + patterne[i][0] > 7 or self.y + patterne[i][1] < 0 or self.y + patterne[i][1] > 7:
@@ -18,7 +18,7 @@ class Roi(Pièce):
         return patterne
 
     def liste_coups_legaux(self, grille: list, peut_capturer_allie=False):
-        patterne = self.get_patterne_possible()
+        patterne = self.récupérer_patterne_possible()
         coup_legaux = []
 
         for coup in patterne:
@@ -53,13 +53,10 @@ class Roi(Pièce):
                 else:
                     continue
 
-            if grille[self.y + coup[1]][self.x + coup[0]]:
-                if peut_capturer_allie and grille[self.y + coup[1]][self.x + coup[0]].couleur == self.couleur:
-                    coup_legaux.append(coup)
-                elif not grille[self.y + coup[1]][self.x + coup[0]].couleur == self.couleur:
-                    coup_legaux.append(coup)
-            else:
-                coup_legaux.append(coup)
+            pièce = grille[self.y + coup[1]][self.x + coup[0]]
+            if pièce and pièce.couleur == self.couleur:
+                continue
+            coup_legaux.append(coup)
 
         return coup_legaux
 

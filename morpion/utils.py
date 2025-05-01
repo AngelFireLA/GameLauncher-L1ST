@@ -86,6 +86,7 @@ def status_serveur(status=None):
         return serveur_tourne
     serveur_tourne = status
 
+
 def coups_légaux(grille):
     coups = []
     for y in range(3):
@@ -101,15 +102,20 @@ def copier_grille(grille):
 
 def vérifier_si_victoire(grille):
     for i in range(3):
+        # ligne
         if grille[i][0] == grille[i][1] == grille[i][2] and grille[i][0]:
-            return (i, 0), (i, 2), grille[i][0]
+            return (i, 0), (i, 2)
+        # colonne
         if grille[0][i] == grille[1][i] == grille[2][i] and grille[0][i]:
-            return (0, i), (2, i), grille[0][i]
+            return (0, i), (2, i)
+
     if grille[0][0] == grille[1][1] == grille[2][2] and grille[0][0]:
-        return (0, 0), (2, 2), grille[0][0]
+        return (0, 0), (2, 2)
+
     if grille[0][2] == grille[1][1] == grille[2][0] and grille[0][2]:
-        return (0, 2), (2, 0), grille[0][2]
-    return False
+        return (0, 2), (2, 0)
+
+    return None
 
 
 def vérifier_si_match_nul(grille):

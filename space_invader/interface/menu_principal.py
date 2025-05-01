@@ -29,7 +29,7 @@ def main():
             partie_en_cours.main()
 
         if bouton_quitter.est_clique():
-            pygame.quit(); sys.exit()
+            return
 
         screen.blit(bg, (0,0))
         # Titre en noir pour plus de contraste

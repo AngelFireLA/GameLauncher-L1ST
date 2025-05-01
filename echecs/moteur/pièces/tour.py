@@ -9,7 +9,7 @@ class Tour(Pièce):
         nouvell_pièce = Tour(self.couleur,  self.x, self.y)
         return nouvell_pièce
 
-    def get_patterne_possible(self):
+    def récupérer_patterne_possible(self):
         patterne = [(+1, +0), (-1, +0), (+0, +1), (+0, -1)]
         for i in range(len(patterne) - 1, -1, -1):
             if self.x + patterne[i][0] < 0 or self.x + patterne[i][0] > 7 or self.y + patterne[i][1] < 0 or self.y + \
@@ -18,7 +18,7 @@ class Tour(Pièce):
         return patterne
 
     def liste_coups_legaux(self, grille: list, peut_capturer_allie=False):
-        patterne = self.get_patterne_possible()
+        patterne = self.récupérer_patterne_possible()
         nouveau_patterne = []
         for coup in patterne:
             x = coup[0]
@@ -51,7 +51,6 @@ class Tour(Pièce):
     def bouge(self, x_ajouté, y_ajouté, grille: list, forced=False):
         if (x_ajouté, y_ajouté) in self.liste_coups_legaux(grille) or forced:
             self.a_bougé = True
-
             grille[self.y][self.x] = None
             self.x += x_ajouté
             self.y += y_ajouté

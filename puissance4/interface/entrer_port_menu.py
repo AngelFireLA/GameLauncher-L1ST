@@ -40,7 +40,7 @@ def main():
 
         try:
             port_value = int(zone_texte_pour_port.getText())
-            if 1024 <= port_value <= 49151:
+            if 1024 <= port_value <= 65535:
                 continue_button.montrer = True
             else:
                 continue_button.montrer = False

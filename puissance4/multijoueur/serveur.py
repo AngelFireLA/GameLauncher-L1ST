@@ -4,6 +4,7 @@ import threading
 import time
 from ..utils import status_serveur
 
+
 class Serveur:
     def __init__(self, ip='0.0.0.0', port=25565):
         self.ip = ip
@@ -12,7 +13,6 @@ class Serveur:
         self.clients = {}
 
     def démarre_serveur(self):
-
         self.socket_serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket_serveur.bind((self.ip, self.port))
         self.socket_serveur.listen(2)
@@ -31,19 +31,10 @@ class Serveur:
 
     def gère_client(self, socket_client):
         try:
-            i = 0
             nom_utilisateur = None
             connecté = False
             while True:
-                i += 1
-
-                print(f"i: {i}")
-                try:
-                    data = socket_client.recv(2048).decode('utf-8').strip()
-                except ConnectionResetError:
-                    break
-                if not data:
-                    break
+                data = socket_client.recv(2048).decode('utf-8').strip()
                 if data.startswith("@connexion:"):
                     nom_utilisateur = data.split(":")[1]
                     if nom_utilisateur in self.clients:
@@ -62,15 +53,12 @@ class Serveur:
                 if connecté:
                     print(f"Message reçu de {nom_utilisateur}: {data}")
                     if data.startswith("@jouer:"):
-                        colonne = int(data.split(":")[1])
-                        for client in self.clients:
-                            if client != nom_utilisateur:
-                                self.envoyer_message(client, f"@jouer:{colonne}")
+                        autre_utilisateur = [client for client in self.clients if client != nom_utilisateur][0]
+                        self.envoyer_message(autre_utilisateur, data)
 
         except ConnectionResetError:
             pass
         finally:
-
             socket_client.close()
             print("Client déconnecté")
 

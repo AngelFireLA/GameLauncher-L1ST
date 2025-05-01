@@ -24,7 +24,6 @@ class Negamax(Bot):
 
             prochain_symbole = joueur2.symbole
             score = - self.negamax(plateau_simule, depth=self.profondeur-1, symbole=prochain_symbole)
-            # print("score", score, "coup", col, "meilleur_score", meilleur_score, "meilleur_coup", meilleur_coup)
             if score > meilleur_score:
                 meilleur_score = score
                 meilleur_coups = [col]
@@ -32,7 +31,6 @@ class Negamax(Bot):
                 meilleur_coups.append(col)
                 random.shuffle(meilleur_coups)
 
-        # print()
         return meilleur_coups[0] if meilleur_coups is not None else 0
 
 
@@ -48,13 +46,8 @@ class Negamax(Bot):
         for col in plateau.colonnes_jouables:
             plateau_simule = plateau.copier_grille()
             plateau_simule.ajouter_jeton(col, symbole)
-            # if depth == self.profondeur-1:
-            #     print(col, depth, symbole, 1000 + depth)
-            #     plateau_simule.afficher()
-            #     print()
 
             if plateau_simule.est_victoire(col):
-
                 return 1000 + depth
 
             symbole_suivant = self.symbole if symbole != self.symbole else self.autre_symbole()

@@ -12,11 +12,6 @@ def afficher_texte(fenetre, x, y, texte, taille, couleur=(0, 0, 0), font="freesa
     texte = font.render(texte, True, couleur)
     text_rect = texte.get_rect(center=(x, y))
     fenetre.blit(texte, text_rect)
-
-def charger_config():
-    with open(chemin_absolu_dossier+"config.json", "r") as fichier:
-        return json.load(fichier)
-
 def récupérer_port():
     return charger_config()["port"]
 
@@ -32,11 +27,18 @@ def mettre_à_jour_ip(nouvelle_ip):
 def est_local():
     return charger_config()["local"]
 
+
+def charger_config():
+    with open(chemin_absolu_dossier+"config.json", "r") as fichier:
+        return json.load(fichier)
+
+
 def mettre_à_jour_port(nouveau_port):
     config = charger_config()
     config["port"] = nouveau_port
     with open(chemin_absolu_dossier+"config.json", "w") as fichier:
         json.dump(config, fichier)
+
 
 def ip_est_valide(ip):
     try:

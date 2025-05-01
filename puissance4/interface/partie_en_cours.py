@@ -44,7 +44,7 @@ def previsualise_pion(colonne, symbole, fenetre):
 
 
 def afficher_pions(plateau_hauteur, partie, fenetre):
-    for ligne in range(partie.plateau.lignes - 1, -1, -1):
+    for ligne in range(partie.plateau.lignes):
         for colonne in range(partie.plateau.colonnes):
             if ligne < partie.plateau.hauteurs_colonnes[colonne]:
                 symbole = partie.plateau.grille[colonne][ligne]
@@ -129,11 +129,13 @@ def main(profondeur=6):
     partie.ajouter_joueur(joueur2)
     plateau_largeur = partie.plateau.colonnes
     plateau_hauteur = partie.plateau.lignes
-    arriere_plan = pygame.image.load(chemin_absolu_dossier+"assets/images/menu_arrière_plan.jpg")
+
     largeur_fenetre, hauteur_fenetre = plateau_largeur * taille_case + decalage * 2, plateau_hauteur * taille_case + decalage * 2
+    arriere_plan = pygame.image.load(chemin_absolu_dossier+"assets/images/menu_arrière_plan.jpg")
     arriere_plan = pygame.transform.scale(arriere_plan, (largeur_fenetre, hauteur_fenetre))
     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
     pygame.display.set_caption("Partie de Puissance 4")
+
     partie_en_cours = True
     while partie_en_cours:
         affiche_trucs_de_base(plateau_largeur, plateau_hauteur, arriere_plan, partie, fenetre)
@@ -144,11 +146,12 @@ def main(profondeur=6):
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 colonne = (event.pos[0] - decalage) // taille_case
+                if not 0 <= colonne < plateau_largeur:
+                    continue
                 ligne_finale = partie.plateau.hauteurs_colonnes[colonne]
                 symbole = partie.joueur1.symbole if partie.tour_joueur == 1 else partie.joueur2.symbole
                 animation_jeton(colonne, ligne_finale, symbole)
                 if partie.jouer(colonne, partie.tour_joueur):
-
                     partie_en_cours = vérifie_fin_de_partie(fenetre, hauteur_fenetre, largeur_fenetre, partie, colonne)
 
                     if not partie_en_cours:
@@ -159,7 +162,6 @@ def main(profondeur=6):
                         partie.tour_joueur = 2
                     else:
                         partie.tour_joueur = 1
-
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -178,7 +180,6 @@ def main(profondeur=6):
             symbole = partie.joueur1.symbole if partie.tour_joueur == 1 else partie.joueur2.symbole
             animation_jeton(colonne, ligne_finale, symbole)
             if partie.jouer(colonne, partie.tour_joueur):
-
                 partie_en_cours = vérifie_fin_de_partie(fenetre, hauteur_fenetre, largeur_fenetre, partie, colonne)
                 if not partie_en_cours:
                     if partie.plateau.est_nul():
@@ -194,6 +195,7 @@ def main(profondeur=6):
             colonne = (mouse[0] - decalage) // taille_case
             symbole = partie.joueur1.symbole if partie.tour_joueur == 1 else partie.joueur2.symbole
             previsualise_pion(colonne, symbole, fenetre)
+
         if partie_en_cours:
             pygame.draw.circle(fenetre, couleurs_jetons[partie.joueur1.symbole if partie.tour_joueur == 1 else partie.joueur2.symbole], (largeur_fenetre - 50, 50), 25)
             pygame.display.flip()
@@ -235,18 +237,19 @@ def main_multi():
     pygame.display.set_caption("Partie de Puissance 4")
 
     port = récupérer_port()
-    local = est_local()
     socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    ip_serveur = récupérer_ip_cible() if not local else "127.0.0.1"
+    ip_serveur = récupérer_ip_cible()
     socket_client.connect((ip_serveur, port))
 
-    socket_client.setblocking(False)
+
     nom_utilisateur = str(uuid.uuid4())
     socket_client.sendall(f"@connexion:{nom_utilisateur}".encode('utf-8'))
     print("Connexion établie")
     fenetre.blit(arriere_plan, (0, 0))
     afficher_texte(fenetre, largeur_fenetre//2, hauteur_fenetre//2, "En attente d'un adversaire...", 60, dict_couleurs["bleu marin"])
     pygame.display.flip()
+
+    socket_client.setblocking(False)
     réponse = ""
     while not réponse.startswith("@commencer:"):
         try:
@@ -274,6 +277,8 @@ def main_multi():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if partie.tour_joueur == indexe_joueur:
                     colonne_choisie = (event.pos[0] - decalage) // taille_case
+                    if not 0 <= colonne_choisie < plateau_largeur:
+                        continue
                     socket_client.sendall(f"@jouer:{colonne_choisie}".encode('utf-8'))
 
             if event.type == pygame.KEYDOWN:

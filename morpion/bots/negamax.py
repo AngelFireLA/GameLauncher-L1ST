@@ -36,8 +36,10 @@ class Negamax(Bot):
                 return 1 if self.veut_gagner else -1
             else:
                 return -1 if self.veut_gagner else 1
+
         if est_nul:
             return 0
+
         meilleur_score = -float('inf')
         for coup in coups_légaux(grille):
             copie_grille = copier_grille(grille)
@@ -48,4 +50,5 @@ class Negamax(Bot):
             if alpha >= beta:
                 break
         return meilleur_score
+
 
