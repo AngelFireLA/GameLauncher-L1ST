@@ -139,8 +139,6 @@ class Negamax(Bot):
         self.table_de_transposition = {}
 
 
-
-
     def trouver_coup(self, partie) -> int:
 
         start_time = time.time()
@@ -213,7 +211,7 @@ class Negamax(Bot):
         if entrée_transposition is not None:
             return entrée_transposition
 
-        if vérifie_si_nul(grille, clé_hash):
+        if vérifie_si_nul(grille, partie):
             return 0
 
         if profondeur == 0 or vérifie_si_victoire(grille):
@@ -224,8 +222,7 @@ class Negamax(Bot):
         for pièce, coup in coups_triés:
             copie_pièce = pièce.copy()
             copie_grille = copie_pièce.bouge(coup[0], coup[1], copier_grille(grille))
-            # if profondeur == 2:
-            #     montrer_grille(copie_grille)
+
             score = -self.negamax(copie_grille, profondeur - 1, utils.couleur_opposée(couleur), -beta, -alpha, partie)
             meilleur_score = max(meilleur_score, score)
             alpha = max(alpha, score)
@@ -248,7 +245,6 @@ class Negamax(Bot):
         coups_triés.sort(key=lambda x: x[2], reverse=True)
         coups_triés = [(pièce, coup) for pièce, coup, _ in coups_triés] + coups_légaux
         return coups_triés
-
 
 
     def récupérer_entrée(self, valeur_hash, profondeur, couleur):

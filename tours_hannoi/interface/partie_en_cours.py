@@ -22,23 +22,21 @@ def afficher_tours(fenetre, partie, images_anneaux, largeur_anneaux, anneau_sél
         x = positions_poteaux[i] + largeur_poteau//2
         y = niveau_sol - 20
         for j, anneau in enumerate(tour):
-
             if anneau == anneau_sélectionné:
                 continue
 
             largeur_anneau = largeur_anneaux[anneau]
-            #print("j:", j, "anneau:", anneau, "largeur_anneau:", largeur_anneau, "image_anneau:", images_anneaux[anneau-1])
             hauteur_anneau = 30
             anneau_rect = images_anneaux[anneau - 1].get_rect()
-            # make the anneau rect 20 pixels longer
-
             anneau_rect.topleft = (x - largeur_anneau // 2, y - hauteur_anneau)
             fenetre.blit(images_anneaux[anneau - 1], anneau_rect)
+
             anneau_rect.width += 50
             anneau_rect.x -= 25
             anneau_rect.height += 50
             anneau_rect.y -= 25
             anneaux_rects[anneau] = anneau_rect
+
             y -= hauteur_anneau + 10
     return anneaux_rects
 
@@ -70,7 +68,7 @@ def main():
             pygame.time.wait(10)
             pygame.display.flip()
         else:
-            résoudre(n - 1, départ, arrivée, intermédiaire)
+            résoudre(n - 1, départ=départ, intermédiaire=arrivée, arrivée=intermédiaire)
             partie.bouger(départ, arrivée)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -101,7 +99,7 @@ def main():
     largeur_anneaux = {i: (i + 1) * 20+20 for i in range(1, 65)}
     images_anneaux = []
 
-    for i in range(64):
+    for i in range(15):
         image_anneau = pygame.image.load(chemin_absolu_dossier + f"assets/images/anneau_{couleurs_anneaux[i%6]}.png")
         images_anneaux.append(pygame.transform.scale(image_anneau, (largeur_anneaux[i+1], 40)))
 

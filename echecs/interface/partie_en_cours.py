@@ -98,7 +98,7 @@ def case_de_la_souris(couleur_du_joueur):
 
 def vérifie_fin_de_partie(partie: Partie, zobrist_grille, fenêtre, couleur_joueur, multi=False):
     est_victoire = utils.vérifie_si_victoire(partie.grille)
-    est_nul = utils.vérifie_si_nul(partie.grille, zobrist_grille, partie)
+    est_nul = utils.vérifie_si_nul(partie.grille, partie)
     joueur_actuel = partie.joueur1 if partie.tour_joueur == partie.joueur1.couleur else partie.joueur2
     if est_victoire:
         fenêtre.blit(arriere_plan, (0, 0))
@@ -148,7 +148,7 @@ def main(profondeur=4):
     en_cours = True
     couleur_joueur = "blanc"
     partie = Partie()
-    partie.grille_depuis_fen("8/8/8/8/8/8/8/8/8")
+    partie.grille_depuis_fen()
     joueur1 = Joueur("Joueur 1", "blanc")
     if profondeur > 0:
         temp_de_pensée_max = 0.5 if profondeur >= 4 else 0
@@ -198,7 +198,8 @@ def main(profondeur=4):
                         viens_de_jouer = True
                         partie.compteur_de_tour += 1
                         partie.grilles.append(utils.copier_grille(partie.grille))
-                        if len(partie.grilles) > 1 and utils.nombre_pièces_restantes(partie.grilles[-1]) < utils.nombre_pièces_restantes(partie.grilles[-2]):
+                        if (len(partie.grilles) > 1 and utils.nombre_pièces_restantes(partie.grilles[-1])
+                                < utils.nombre_pièces_restantes(partie.grilles[-2])):
                             pygame.mixer.music.load(chemin_absolu_dossier+"assets/audio/capture.mp3")
                             pygame.mixer.music.play()
                         else:
@@ -213,15 +214,12 @@ def main(profondeur=4):
                         pièce_sélectionnée = None
                         cases_sélectionnées = []
 
-
                     elif pièce_actuelle and pièce_actuelle.couleur == partie.tour_joueur:
                         cases_sélectionnées.clear()
                         pièce_sélectionnée = pièce_actuelle
                         coups_légaux_actuels = pièce_sélectionnée.liste_coups_legaux(partie.grille)
                         for coup_légal in coups_légaux_actuels:
-                            cases_sélectionnées.append(
-                                (pièce_sélectionnée.x + coup_légal[0], pièce_sélectionnée.y + coup_légal[1]))
-
+                            cases_sélectionnées.append((pièce_sélectionnée.x + coup_légal[0], pièce_sélectionnée.y + coup_légal[1]))
                 else:
                     if not (pièce_actuelle and pièce_actuelle.couleur == partie.tour_joueur):
                         continue

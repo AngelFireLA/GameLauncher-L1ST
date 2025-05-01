@@ -111,31 +111,30 @@ def vérifie_si_victoire(grille):
         for pièce in ligne:
             if pièce and pièce.type_de_pièce == "roi":
                 couleurs_avec_un_roi.add(pièce.couleur)
-
     if "blanc" not in couleurs_avec_un_roi:
         return "noir"
     elif "noir" not in couleurs_avec_un_roi:
         return "blanc"
-
     return False
 
-def vérifie_si_nul(grille, zobrsit_grille, partie=None):
-    if partie:
-        if partie.tour_depuis_coup_intéressant > 50:
-            return True
-        if partie.répétitions.count(zobrsit_grille) >= 3:
+
+def vérifie_si_nul(grille, partie):
+    if partie.tour_depuis_coup_intéressant > 50:
+        return True
+    if pas_assez_de_matériel(grille):
+        return "insuffisance de matériel"
+
+    for position in partie.répétitions:
+        if partie.répétitions.count(position) >= 3:
             return "répétition"
-        elif pas_assez_de_matériel(grille):
-            return "insuffisance de matériel"
     return False
+
 
 def a_matériel_pour_mat(pièces_couleur):
     nombre_pièces = sum(pièces_couleur.values())
-    if nombre_pièces <= 2:
-        return False
-    if nombre_pièces == 3 and pièces_couleur["cavalier"] == 2:
-        return False
-    return True
+    if pièces_couleur["fou"] >= 2 or nombre_pièces > 3 or pièces_couleur["cavalier"] >= 3:
+        return True
+    return False
 
 
 def pas_assez_de_matériel(grille):
