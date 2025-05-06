@@ -125,7 +125,7 @@ def main():
                         for lettre_avec_accent, lettre_sans_accent in replacements.items():
                             if lettre == lettre_avec_accent:
                                 lettre = lettre_sans_accent
-                        if lettre.isalpha():
+                        if case_selectionnee is not None and lettre.isalpha():
                             grille_lettres[ligne_actuelle][case_selectionnee] = lettre
 
             if event.type == pygame.MOUSEBUTTONDOWN and not est_victoire and not est_perdu:
@@ -139,6 +139,7 @@ def main():
                     for colonne in range(5):
                         if souris_est_dans_zone(pos_souris, cases[ligne_actuelle][colonne]):
                             case_selectionnee = colonne
+                            print(case_selectionnee)
                             break
                         else:
                             case_selectionnee = None

@@ -232,7 +232,6 @@ def main(profondeur=4):
                         cases_sélectionnées.append((pièce_sélectionnée.x + coup_légal[0], pièce_sélectionnée.y + coup_légal[1]))
 
 
-        # draw a white circle is it's blanc's turn in top left corner, otherwise black circle
         pygame.draw.circle(fenêtre, utils.dict_couleurs[partie.tour_joueur], (largeur_fenêtre - decalage // 2, decalage // 2), 25)
         if pièce_sélectionnée and cases_sélectionnées:
             for case in cases_sélectionnées:
@@ -374,7 +373,6 @@ def main_multi():
                         cases_sélectionnées.append((pièce_sélectionnée.x + coup_légal[0], pièce_sélectionnée.y + coup_légal[1]))
 
 
-        # draw a white circle is it's blanc's turn in top left corner, otherwise black circle
         pygame.draw.circle(fenêtre, utils.dict_couleurs[partie.tour_joueur], (largeur_fenêtre - decalage // 2, decalage // 2), 25)
         if pièce_sélectionnée and cases_sélectionnées:
             for case in cases_sélectionnées:

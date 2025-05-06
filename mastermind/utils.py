@@ -7,8 +7,12 @@ def récupérer_combinaison_aléatoire():
     couleurs = ["rouge", "vert", "bleu", "jaune", "orange", "rose"]
     combinaison = []
     for i in range(4):
-        combinaison.append(random.choice(couleurs))
+        couleur_random = random.choice(couleurs)
+        while couleur_random in combinaison:
+            couleur_random = random.choice(couleurs)
+        combinaison.append(couleur_random)
     return combinaison
+
 largeur_fenetre = 700
 hauteur_fenetre = 800
 

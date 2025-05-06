@@ -32,7 +32,7 @@ class Negamax(Bot):
         est_victoire = vérifier_si_victoire(grille)
         est_nul = vérifier_si_match_nul(grille)
         if est_victoire:
-            if est_victoire[2] == symbole:
+            if est_victoire[1] == symbole:
                 return 1 if self.veut_gagner else -1
             else:
                 return -1 if self.veut_gagner else 1

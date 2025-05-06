@@ -237,7 +237,6 @@ class Negamax(Bot):
         coups_captures = utils.captures_possibles(coups_légaux, grille)
         coups_légaux = [coup for coup in coups_légaux if coup not in coups_captures]
         coups_triés = []
-        #order moves based on which capture move has the biggest difference in points positive for us
         for (pièce, coup) in coups_captures:
             nouvelle_case = grille[pièce.y + coup[1]][pièce.x + coup[0]]
             différence_points = nouvelle_case.valeur - pièce.valeur

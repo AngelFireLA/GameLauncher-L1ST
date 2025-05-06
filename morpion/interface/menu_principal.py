@@ -28,7 +28,7 @@ def main():
                 pygame.quit()
                 exit()
             if event.type == pygame.MOUSEMOTION:
-                if pygame.time.get_ticks() % 10 == 0:
+                if pygame.time.get_ticks() % 20 == 0:
                     if boutton_troll.rect.collidepoint(event.pos):
                         boutton_troll.x = random.randint(boutton_troll.largeur // 2,
                                                          largeur_fenetre - boutton_troll.largeur // 2)

@@ -136,9 +136,8 @@ def lancer_histoire_principale(dernier_texte=None):
                             else:
                                 histoire_en_cours = True
                                 histoire_apparaissante = TexteApparaissant(surface=fenêtre, font=font, texte=histoire_principale_en_liste[indexe_histoire], rect=zone_de_texte, couleur_texte=dict_couleurs["marron"])
-                                if os.path.exists(fichier_sauvegarde):
-                                    with open(fichier_sauvegarde, "w", encoding="utf-8") as f:
-                                        f.write(str(prochaine_partie))
+                                with open(fichier_sauvegarde, "w", encoding="utf-8") as f:
+                                    f.write(str(prochaine_partie))
 
 
 

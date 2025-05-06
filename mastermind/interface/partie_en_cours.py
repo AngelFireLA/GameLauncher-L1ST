@@ -40,12 +40,14 @@ def dessiner_cases(fenetre, grille_couleurs, grille_progrès, ligne_actuelle, ca
 
             if grille_couleurs[ligne][colonne] != "":
                 pygame.draw.circle(fenetre, dict_couleurs[grille_couleurs[ligne][colonne]], (x + largeur_case // 2, y + hauteur_case // 2), 30)
+
         corrects = grille_progrès[ligne].count(2)
         presque_corrects = grille_progrès[ligne].count(1)
         for i in range(corrects):
             pygame.draw.circle(fenetre, dict_couleurs["vert"], (x + largeur_case + decalage + i * 30, y + hauteur_case // 2), 10)
         for j in range(presque_corrects):
             pygame.draw.circle(fenetre, dict_couleurs["jaune"], (x + largeur_case + decalage + (corrects+j) * 30, y + hauteur_case // 2), 10)
+
     grille_coordonnées_cases = []
     for ligne in range(6):
         ligne_coordonnées_cases = []

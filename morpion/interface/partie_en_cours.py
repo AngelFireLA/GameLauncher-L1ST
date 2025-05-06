@@ -243,7 +243,6 @@ def main_multi():
             if joueur_actuel.symbole == "X":
                 pygame.draw.rect(fenetre, (0, 0, 0), (largeur_fenetre - 100, 50, 50, 50), 5)
             else:
-                #draw a circle top right corner
                 pygame.draw.circle(fenetre, (0, 0, 0), (largeur_fenetre - 100, 50), 20, 5)
             pygame.display.flip()
         clock.tick(60)

@@ -5,7 +5,6 @@ from .bot import Bot
 
 def center_ordered_moves(plateau):
     center = plateau.colonnes // 2
-    # Sort available columns by how close they are to the center.
     return sorted(list(plateau.colonnes_jouables), key=lambda col: abs(col - center))
 
 class Negamax4(Bot):

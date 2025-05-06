@@ -37,7 +37,6 @@ def main():
                     else:
                         threading.Thread(target=serveur.main, args=(port_pour_serveur,), daemon=True).start()
                     partie_en_cours.main_multi()
-                    #close the server
                     serveur.éteint_serveur()
                     fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
 

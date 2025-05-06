@@ -70,7 +70,6 @@ def main():
 
         if assombrissement:
             temps_assombrissement = min(temps_assombrissement+3, 255)
-            # Create a temporary surface with SRCALPHA for alpha blending.
             fade_surface = pygame.Surface((largeur_fenetre, hauteur_fenetre), pygame.SRCALPHA)
             fade_surface.fill((0, 0, 0, temps_assombrissement))
             fenetre.blit(fade_surface, (0, 0))

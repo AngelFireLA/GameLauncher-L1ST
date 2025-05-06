@@ -239,6 +239,7 @@ def main_multi():
     port = récupérer_port()
     socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     ip_serveur = récupérer_ip_cible()
+    print(ip_serveur, port)
     socket_client.connect((ip_serveur, port))
 
 
